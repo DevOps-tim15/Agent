@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  product-service:
+    build: 
+      context: ./product-service
+      dockerfile: Dockerfile
+      args:
+        STAGE: ${STAGE:-dev}
+      target: ${TARGET:-appProductRuntime}
+    image: nikolina97/product-service:${VERSION:-0.1.0}-${STAGE:-dev}
+    container_name: product-service
+    restart: on-failure
+    networks:
+      - servers
+    ports:
+      - 8080:8080
+      
+networks:
+  servers:
+    name: servers
+    driver: bridge
