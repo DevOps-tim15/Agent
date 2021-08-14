@@ -1,0 +1,17 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-lg-4" *ngFor="let product of productList">
+          <div class=" card card-chart" style="width: 18rem;">
+            <img class="card-img-top" src="../../../assets/img/angular2-logo-white.png" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Name: {{product.name}}</h5>
+              <p class="card-text">Price: {{product.price | currency:'EUR':true}}</p>
+              <span>
+                <button type="button" class="btn btn-light" [routerLink]="['/product', product.id]">Edit</button>
+                <button type="button" class="btn btn-danger" (click)="delete(product.id)">Remove</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

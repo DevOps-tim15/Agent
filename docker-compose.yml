@@ -1,5 +1,16 @@
 version: "3.8"
 services:
+
+  gateway:
+    image: nginx:1.19.8-alpine
+    ports:
+      - 8080:8080
+    networks:
+      - servers
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf
+      - ./gateway/api_gateway.conf:/etc/nginx/api_gateway.conf
+      
   product-service:
     build: 
       context: ./product-service
@@ -13,7 +24,7 @@ services:
     networks:
       - servers
     ports:
-      - 8080:8080
+      - 8081:8080
     environment:
       DATABASE_USERNAME: ${DATABASE_USERNAME:-sa}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-zgadija}
@@ -37,7 +48,15 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-products}
     volumes:
       - database-data:/var/lib/mysql
-#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
+
+  product-frontend:
+    build: ./product-frontend
+    image: nikolina97/product-frontend
+    container_name: product-frontend
+    restart: on-failure
+    ports:
+      - 4200:4200
 
 volumes:
   database-data:

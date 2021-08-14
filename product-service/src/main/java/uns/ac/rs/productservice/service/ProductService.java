@@ -76,4 +76,12 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
+	public Product getProduct(Long id) throws InvalidDataException {
+		Product product = productRepository.findById(id).orElse(null);
+		if (product == null) {
+			throw new InvalidDataException("This product doesn't exist!");
+		}
+		return product;
+	}
+
 }

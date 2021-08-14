@@ -1,0 +1,60 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-8">
+            <div class=" card">
+                <div class=" card-header">
+                    <h5 class=" title">New product</h5>
+                </div>
+                <div class=" card-body">
+                    <form [formGroup]="uploadForm" (ngSubmit)="addNew()">
+                        <div class="preview" *ngIf="imgFile">
+                            <img [src]="imgFile" style="width:400px; height:250px">
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-12">
+                                <div class=" form-group">
+                                    <label for="name"> Name </label>
+                                    <input class=" form-control" type="text" formControlName="name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-6 pr-md-1">
+                                <div class=" form-group">
+                                    <label> Price </label>
+                                    <input class=" form-control" type="number" ng-model="myDecimal | number : 2" 
+                                    ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="price"/>
+                                </div>
+                            </div>
+                            <div class=" col-md-6 pl-md-1">
+                                <div class=" form-group">
+                                    <label> Quantity </label>
+                                    <input class=" form-control" type="number" ng-model="myDecimal | number : 2" 
+                                    ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="quantity" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-8">
+                                <div class=" form-group">
+                                    <label>Image</label>
+                                    <label class="image-upload-container btn btn-bwm">
+                                        <span>Select Image</span>
+                                        <input #imageInput
+                                               type="file"
+                                               accept="image/*"
+                                               >
+                                      </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" card-footer">
+                            <button class=" btn btn-fill btn-danger" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
