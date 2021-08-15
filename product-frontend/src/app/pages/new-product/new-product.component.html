@@ -7,9 +7,6 @@
                 </div>
                 <div class=" card-body">
                     <form [formGroup]="uploadForm" (ngSubmit)="addNew()">
-                        <div class="preview" *ngIf="imgFile">
-                            <img [src]="imgFile" style="width:400px; height:250px">
-                        </div>
                         <div class=" row">
                             <div class=" col-md-12">
                                 <div class=" form-group">
