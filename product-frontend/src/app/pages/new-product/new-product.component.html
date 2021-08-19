@@ -12,6 +12,8 @@
                                 <div class=" form-group">
                                     <label for="name"> Name </label>
                                     <input class=" form-control" type="text" formControlName="name"/>
+                                    <small  class="text-danger"  *ngIf="uploadForm.controls.name.touched && uploadForm.controls.name.errors?.required">
+                                        This field can't be empty!</small>
                                 </div>
                             </div>
                         </div>
@@ -21,6 +23,8 @@
                                     <label> Price </label>
                                     <input class=" form-control" type="number" ng-model="myDecimal | number : 2" 
                                     ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="price"/>
+                                    <small  class="text-danger"  *ngIf="uploadForm.controls.price.touched && uploadForm.controls.price.errors?.required">
+                                        This field can't be empty!</small>
                                 </div>
                             </div>
                             <div class=" col-md-6 pl-md-1">
@@ -28,25 +32,43 @@
                                     <label> Quantity </label>
                                     <input class=" form-control" type="number" ng-model="myDecimal | number : 2" 
                                     ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="quantity" />
+                                    <small  class="text-danger"  *ngIf="uploadForm.controls.quantity.touched && uploadForm.controls.quantity.errors?.required">
+                                        This field can't be empty!</small>
                                 </div>
                             </div>
                         </div>
                         <div class=" row">
-                            <div class=" col-md-8">
-                                <div class=" form-group">
-                                    <label>Image</label>
+                            <div class="col text-center">
+                                <div fxFlex="value%" fxFlexAlign="center"></div>
+                                <img  src={{imgFile}} alt="" id="img">
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class= "col"></div>
+                        </div>
+                        <div class=" row">
+                            <div class="col text-center">
+                                <div class="form-group">
                                     <label class="image-upload-container btn btn-bwm">
                                         <span>Select Image</span>
                                         <input #imageInput
                                                type="file"
                                                accept="image/*"
+                                               (change)="onImageChange($event)"
+                                               formControlName="picture"
                                                >
                                       </label>
+                                      <small  class="text-danger"  *ngIf="uploadForm.controls.picture.touched && uploadForm.controls.picture.errors?.required">
+                                        This field can't be empty!</small>
                                 </div>
                             </div>
                         </div>
                         <div class=" card-footer">
-                            <button class=" btn btn-fill btn-danger" type="submit">Save</button>
+                            <div class= "row">
+                                <div class=" col text-center" style="align-content: center;">
+                                    <button class=" btn btn-fill btn-danger" [disabled]="!uploadForm.valid" type="submit">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

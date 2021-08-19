@@ -1,5 +1,6 @@
 package uns.ac.rs.productservice.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,9 +21,9 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	public List<Product> getAllProducts() {
-		return productRepository.findByActive(true);
-//		return ProductMapper.fromEntityList(productRepository.findAll(), ProductMapper::fromEntity);
+	public List<ProductDTO> getAllProducts() {
+//		return productRepository.findByActive(true);
+		return ProductMapper.fromEntityList(productRepository.findAll(), ProductMapper::fromEntity);
 	}
 
 	public Product  createProduct(ProductDTO productDTO) throws InvalidDataException {
@@ -63,7 +64,7 @@ public class ProductService {
 		product.setName(productDTO.getName());
 		product.setPrice(productDTO.getPrice());
 		product.setQuantity(productDTO.getQuantity());
-		product.setPicture(productDTO.getPicture());
+		product.setPicture(productDTO.getPicture().getBytes(StandardCharsets.UTF_8));
 		return productRepository.save(product);
 	}
 
@@ -76,12 +77,12 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
-	public Product getProduct(Long id) throws InvalidDataException {
+	public ProductDTO getProduct(Long id) throws InvalidDataException {
 		Product product = productRepository.findById(id).orElse(null);
 		if (product == null) {
 			throw new InvalidDataException("This product doesn't exist!");
 		}
-		return product;
+		return ProductMapper.fromEntity(product);
 	}
 
 }

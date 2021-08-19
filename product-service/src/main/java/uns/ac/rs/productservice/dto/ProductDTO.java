@@ -2,6 +2,8 @@ package uns.ac.rs.productservice.dto;
 
 public class ProductDTO {
 	
+	private Long id;
+	
 	private String name;
 	
 	private Double price;
@@ -10,8 +12,9 @@ public class ProductDTO {
 	
 	private String picture;
 
-	public ProductDTO(String name, Double price, Integer quantity, String picture) {
+	public ProductDTO(Long id, String name, Double price, Integer quantity, String picture) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
@@ -22,6 +25,14 @@ public class ProductDTO {
 		super();
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -53,5 +64,12 @@ public class ProductDTO {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductDTO [id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", picture="
+				+ picture + "]";
+	}
+	
 	
 }

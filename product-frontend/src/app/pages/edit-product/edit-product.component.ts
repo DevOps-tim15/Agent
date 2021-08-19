@@ -18,6 +18,7 @@ export class EditProductComponent implements OnInit {
   });
 
   id: number;
+  imgFile: string;
   constructor(private fb: FormBuilder, private productService : ProductServiceService,private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -33,6 +34,8 @@ export class EditProductComponent implements OnInit {
             this.form.controls['name'].setValue(product['name'])
             this.form.controls['quantity'].setValue(product['quantity'])
             this.form.controls['price'].setValue(product['price'])
+            this.form.controls['picture'].setValue(product['picture'])
+            this.imgFile = product['picture'];
             console.log(product)
           },
           error => {
@@ -43,11 +46,29 @@ export class EditProductComponent implements OnInit {
     );
   }
 
+  onImageChange(e) {
+    const reader = new FileReader();
+
+    if (e.target.files && e.target.files.length) {
+      const [file] = e.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.imgFile = reader.result as string;
+        this.form.patchValue({
+          picture: reader.result
+        });
+
+        this.imgFile = this.form.get('picture').value
+      };
+    }
+  }
+
   onSubmit(): void {
     let productName: string = this.form.get('name').value;
     let productPrice: number = this.form.get('price').value;
     let productQuantity: number = this.form.get('quantity').value;
-    let productImage: string = "image"
+    let productImage: string = this.form.get('picture').value;
     let product = {
       name: productName,
       quantity: productQuantity,

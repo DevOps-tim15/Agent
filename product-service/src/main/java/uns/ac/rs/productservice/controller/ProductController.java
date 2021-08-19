@@ -18,12 +18,12 @@ import uns.ac.rs.productservice.exception.InvalidDataException;
 import uns.ac.rs.productservice.service.ProductService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getAll")
 	public ResponseEntity<?> gettAllProducts(){
 		try {
@@ -33,7 +33,7 @@ public class ProductController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getProduct(@PathVariable Long id){
 		try {
@@ -43,7 +43,6 @@ public class ProductController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/create")
 	public ResponseEntity<?> create(@RequestBody ProductDTO productDTO) {
 		try {
@@ -53,17 +52,16 @@ public class ProductController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/update/{id}")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
 		try {
+			System.out.println(productDTO);
 			return new ResponseEntity<>(productService.updateProduct(id, productDTO), HttpStatus.OK);
 		} catch (InvalidDataException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		try {
