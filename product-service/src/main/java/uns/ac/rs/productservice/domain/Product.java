@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -25,8 +26,8 @@ public class Product {
 	@Column(name = "quantity", nullable = false)
 	private Integer quantity;
 	
-	@Column(name = "picture", nullable = false)
-	private String picture;
+	@Lob
+	private byte[] picture;
 	
 	@Column(name = "active", nullable = false)
 	private boolean active;
@@ -35,7 +36,7 @@ public class Product {
 		super();
 	}
 
-	public Product(Long id, String name, Double price, Integer quantity, String picture, boolean active) {
+	public Product(Long id, String name, Double price, Integer quantity, byte[] picture, boolean active) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -45,7 +46,7 @@ public class Product {
 		this.active = active;
 	}
 
-	public Product(String name, Double price, Integer quantity, String picture) {
+	public Product(String name, Double price, Integer quantity, byte[] picture) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -85,11 +86,11 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public String getPicture() {
+	public byte[] getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
 

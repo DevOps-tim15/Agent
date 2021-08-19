@@ -36,7 +36,7 @@ public class ProductIT {
 	
 	@Test
 	public void createProduct() throws InvalidDataException {
-		ProductDTO prodDTO = new ProductDTO("name", 200.20, 100, "picture");
+		ProductDTO prodDTO = new ProductDTO(1L, "name", 200.20, 100, "picture");
 		Product prod = ProductMapper.toEntity(prodDTO);
 		when(productRepository.findOneByName(prodDTO.getName())).thenReturn(Optional.empty());	
 		when(productRepository.save(Mockito.any(Product.class))).thenReturn(prod);	

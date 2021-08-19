@@ -17,7 +17,7 @@ export class NewProductComponent implements OnInit {
     name: ['', Validators.required],
     quantity: ['', Validators.required],
     price: ['', Validators.required],
-    image: ['']
+    picture: ['', Validators.required]
   });
 
   constructor(private fb: FormBuilder, private productService: ProductServiceService, private toastr: ToastrService, private router: Router) { }
@@ -36,9 +36,9 @@ export class NewProductComponent implements OnInit {
       reader.onload = () => {
         this.imgFile = reader.result as string;
         this.uploadForm.patchValue({
-          image: reader.result
+          picture: reader.result
         });
-
+        this.imgFile = this.uploadForm.get('picture').value
       };
     }
   }
@@ -49,7 +49,7 @@ export class NewProductComponent implements OnInit {
     let productName: string = this.uploadForm.get('name').value;
     let productPrice: number = this.uploadForm.get('price').value;
     let productQuantity: number = this.uploadForm.get('quantity').value;
-    let productImage: string = "image"
+    let productImage: string = this.uploadForm.get('picture').value;
     let product = {
       name: productName,
       quantity: productQuantity,
