@@ -23,17 +23,16 @@
                                     <label> Price </label>
                                     <input class=" form-control" type="number" ng-model="myDecimal | number : 2" 
                                     ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="price"/>
-                                    <small  class="text-danger"  *ngIf="form.controls.price.touched && form.controls.price.errors?.required">
-                                        This field can't be empty!</small>
+                                    <small  class="text-danger"  *ngIf="form.controls.price.touched && (form.controls.price.errors?.required || form.controls.price.errors?.min)">
+                                        This field must be positive number!</small>
                                 </div>
                             </div>
                             <div class=" col-md-6 pl-md-1">
                                 <div class=" form-group">
                                     <label> Quantity </label>
-                                    <input class=" form-control" type="number" ng-model="myDecimal | number : 2" 
-                                    ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="quantity" />
-                                    <small  class="text-danger"  *ngIf="form.controls.quantity.touched && form.controls.quantity.errors?.required">
-                                        This field can't be empty!</small>
+                                    <input class=" form-control" type="number" min="1" step="1" formControlName="quantity" />
+                                    <small  class="text-danger"  *ngIf="form.controls.quantity.touched && (form.controls.quantity.errors?.required || form.controls.quantity.errors?.min || form.controls.quantity.errors?.pattern)">
+                                        This field must be positive integer number!</small>
                                 </div>
                             </div>
                         </div>

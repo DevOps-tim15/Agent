@@ -32,6 +32,9 @@ jobs:
         - name: Build docker image
           working-directory: ./product-service
           run: docker build -t ${{ secrets.DOCKER_USER }}/product-service:${{ steps.tag_version.outputs.new_tag }} --no-cache .
+        - name: Build shopping service docker image
+          working-directory:  ./shopping-service
+          run: docker build -t ${{ secrets.DOCKER_USER }}/shopping-service:${{ steps.tag_version.outputs.new_tag }} --no-cache .
         - name: Login to Docker Hub
           run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
         - name: Publish Docker image

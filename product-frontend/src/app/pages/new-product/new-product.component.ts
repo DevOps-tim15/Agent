@@ -15,8 +15,8 @@ export class NewProductComponent implements OnInit {
 
   uploadForm = this.fb.group({
     name: ['', Validators.required],
-    quantity: ['', Validators.required],
-    price: ['', Validators.required],
+    quantity: [null, [Validators.required, Validators.pattern("[0-9]+"), Validators.min(0)]],
+    price: ['', [Validators.required, Validators.min(0)]],
     picture: ['', Validators.required]
   });
 
@@ -38,7 +38,9 @@ export class NewProductComponent implements OnInit {
         this.uploadForm.patchValue({
           picture: reader.result
         });
-        this.imgFile = this.uploadForm.get('picture').value
+        // this.imgFile = 
+        console.log(this.uploadForm.get('picture').value);
+        console.log(this.imgFile);
       };
     }
   }
