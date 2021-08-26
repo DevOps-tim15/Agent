@@ -10,6 +10,7 @@ import { NewProductComponent } from "src/app/pages/new-product/new-product.compo
 import { EditProductComponent } from "src/app/pages/edit-product/edit-product.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ProductShoppingComponent } from "src/app/pages/product-shopping/product-shopping.component";
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
   declarations: [
     ProductsComponent,
     NewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ProductShoppingComponent
   ]
 })
 export class AdminLayoutModule {}
