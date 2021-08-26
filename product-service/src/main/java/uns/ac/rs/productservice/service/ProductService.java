@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,9 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Transactional
 	public List<ProductDTO> getAllProducts() {
-//		return productRepository.findByActive(true);
-		return ProductMapper.fromEntityList(productRepository.findAll(), ProductMapper::fromEntity);
+		return ProductMapper.fromEntityList(productRepository.findByActiveTrue(), ProductMapper::fromEntity);
 	}
 
 	public Product  createProduct(ProductDTO productDTO) throws InvalidDataException {
