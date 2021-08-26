@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: Dockerfile
+run: 
+  web: java -Xms256m -Xmx256m -Xss512k -jar shopping.jar --server.port=$PORT 

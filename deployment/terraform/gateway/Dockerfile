@@ -1,0 +1,1 @@
+FROM nikolina97/gateway-agent:v0.0.4-dev.0
