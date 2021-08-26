@@ -18,11 +18,17 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Maven Package
+      - name: Maven Package Product Service
         working-directory: ./product-service
         run: mvn -B clean package -DskipTests
-      - name: Maven Verify
+      - name: Maven Package Shopping Service
+        working-directory: ./shopping-service
+        run: mvn -B clean package -DskipTests
+      - name: Maven Verify Product Service
         working-directory: ./product-service
+        run: mvn -B clean verify -Dspring.profiles.active=test
+      - name: Maven Verify Shopping Service
+        working-directory: ./shopping-service
         run: mvn -B clean verify -Dspring.profiles.active=test
         
   analyze-product-service:
@@ -90,7 +96,7 @@ jobs:
         run: mvn -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  
 
   analyze-frontend:
-    needs: analyze-product-service
+    needs: [analyze-product-service, analyze-shopping-service]
     name: SonarCloud Angular
     runs-on: ubuntu-latest
     steps:
