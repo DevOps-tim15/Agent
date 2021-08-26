@@ -1,0 +1,12 @@
+FROM node:14.17.5-alpine AS builder
+WORKDIR /usr/src/app
+COPY ./product-frontend .
+RUN npm install
+ENV PATH="./node_modules/.bin:$PATH"
+RUN ng build
+
+FROM nginx:1.17-alpine AS appRuntime
+COPY ./Gateway/nginx.conf /etc/nginx/conf.d/default.conf.template
+CMD /bin/sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
+EXPOSE $PORT
