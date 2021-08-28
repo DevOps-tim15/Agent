@@ -14,6 +14,7 @@ services:
       - product-service
       - database
       - shopping-service
+      - report-service
     networks:
       - servers
       
@@ -53,6 +54,28 @@ services:
       - servers
     ports:
       - 8082:8082
+    environment:
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-sa}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-zgadija}
+      DATABASE_DOMAIN: ${DATABASE_DOMAIN:-database}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA:-products}
+    depends_on: 
+      - database
+   
+  report-service:
+    build: 
+      context: ./report-service
+      dockerfile: Dockerfile
+      args:
+        STAGE: ${STAGE:-dev}
+      target: ${TARGET:-appProductRuntime}
+    image: nikolina97/report-service:${VERSION:-0.1.0}-${STAGE:-dev}
+    container_name: report-service
+    restart: on-failure
+    networks:
+      - servers
+    ports:
+      - 8083:8083
     environment:
       DATABASE_USERNAME: ${DATABASE_USERNAME:-sa}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-zgadija}
