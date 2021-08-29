@@ -24,28 +24,28 @@ public class ReportService {
 	@Autowired
 	private ProductRepository productRepository;
 
-	public Map<ProductDTO, Double> productEarnings() throws InvalidDataException{
+	public Map<String, Double> productEarnings() throws InvalidDataException{
 		List<ReportDTO> reports = orderItemRepository.sumTotalEarnings();
-		HashMap<ProductDTO, Double> productsReport = new HashMap<ProductDTO, Double>();
+		HashMap<String, Double> productsReport = new HashMap<String, Double>();
 		for (ReportDTO reportDTO : reports) {
 			Product product = productRepository.findById(reportDTO.getProductId()).get();
 			if (product == null) {
 				throw new InvalidDataException("Product does not exist.");
 			}
-			productsReport.put(ProductMapper.fromEntity(product), reportDTO.getTotal());
+			productsReport.put(ProductMapper.fromEntity(product).getName(), reportDTO.getTotal());
 		}
 		return productsReport;
 	}
 
-	public Map<ProductDTO, Double> productCount() throws InvalidDataException{
+	public Map<String, Double> productCount() throws InvalidDataException{
 		List<ReportDTO> reports = orderItemRepository.sumTotalCount();
-		HashMap<ProductDTO, Double> productsReport = new HashMap<ProductDTO, Double>();
+		HashMap<String, Double> productsReport = new HashMap<String, Double>();
 		for (ReportDTO reportDTO : reports) {
 			Product product = productRepository.findById(reportDTO.getProductId()).get();
 			if (product == null) {
 				throw new InvalidDataException("Product does not exist.");
 			}
-			productsReport.put(ProductMapper.fromEntity(product), reportDTO.getTotal());
+			productsReport.put(ProductMapper.fromEntity(product).getName(), reportDTO.getTotal());
 		}
 		return productsReport;
 	}

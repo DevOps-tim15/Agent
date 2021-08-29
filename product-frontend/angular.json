@@ -30,10 +30,11 @@
             "styles": [
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/scss/black-dashboard.scss",
               "src/assets/css/nucleo-icons.css"
             ],
-            "scripts": [],
+            "scripts": []
           },
           "configurations": {
             "production": {

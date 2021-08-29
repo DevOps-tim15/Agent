@@ -1,0 +1,51 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-12">
+            <div class=" card card-chart">
+                <div class=" card-header">
+                    <div class=" row">
+                        <div class=" col-sm-10">
+                            <h2 class=" card-title">Total earnings per product</h2>
+                            <div class="chart-wrapper" *ngIf = "barChartLabels?.length > 0">
+                                <canvas baseChart 
+                                [height]="80"
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                              </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" row">
+        <div class=" col-12">
+            <div class=" card card-chart">
+                <div class=" card-header">
+                    <div class=" row">
+                        <div class=" col-sm-10">
+                            <h2 class=" card-title">Total count of sold products</h2>
+                            <div class="chart-wrapper" *ngIf = "barChartLabelsCount?.length > 0" >
+                                <canvas baseChart 
+                                [height]="80"
+                                [datasets]="barChartDataCount"
+                                [labels]="barChartLabelsCount"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                              </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

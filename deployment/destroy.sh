@@ -20,4 +20,6 @@ echo "Connected to database"
 
 terraform destroy -auto-approve -var product_app_name="$APP_NAME_AGENT_PRODUCTS" \
                               -var gateway_app_name="$APP_NAME_AGENT_GATEWAY" \
-                              -var shopping_app_name="$APP_NAME_AGENT_SHOPPING"
+                              -var shopping_app_name="$APP_NAME_AGENT_SHOPPING" \
+                              -var report_app_name="$APP_NAME_AGENT_REPORT"
+                              

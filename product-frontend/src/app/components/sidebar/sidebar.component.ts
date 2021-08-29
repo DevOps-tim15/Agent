@@ -24,6 +24,13 @@ export const ROUTES: RouteInfo[] = [
     title: "View shopping cart",
     icon: "icon-cart",
     class: ""
+  },
+  {
+    path: "/report",
+    title: "Report",
+    icon: "icon-chart-bar-32",
+    class: ""
+
   }
 ];
 

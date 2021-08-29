@@ -1,1 +1,1 @@
-FROM nikolina97/shopping-service:v0.0.3-dev.0
+FROM nikolina97/shopping-service:v0.0.5-dev.0
