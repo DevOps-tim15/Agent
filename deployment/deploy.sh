@@ -18,6 +18,7 @@ DATABASE_URL=$(heroku config:get DATABASE_URL --app "$TERRAFORM_PG_BACKEND") && 
 
 rm -rf ./products/Dockerfile
 rm -rf ./shopping/Dockerfile
+rm -rf ./report/Dockerfile
 rm -rf ./gateway/Dockerfile
 
 
@@ -26,6 +27,9 @@ cat ./products/Dockerfile
 
 echo "FROM $APP_IMAGE_NAME_AGENT_SHOPPING" >> ./shopping/Dockerfile
 cat ./shopping/Dockerfile
+
+echo "FROM $APP_IMAGE_NAME_AGENT_REPORT" >> ./report/Dockerfile
+cat ./report/Dockerfile
 
 echo "FROM $APP_IMAGE_NAME_AGENT_GATEWAY" >> ./gateway/Dockerfile
 cat ./gateway/Dockerfile
@@ -36,5 +40,6 @@ echo "Connected to database"
 
 terraform apply -auto-approve -var product_app_name="$APP_NAME_AGENT_PRODUCTS" \
                               -var gateway_app_name="$APP_NAME_AGENT_GATEWAY" \
-                              -var shopping_app_name="$APP_NAME_AGENT_SHOPPING"
+                              -var shopping_app_name="$APP_NAME_AGENT_SHOPPING" \
+                              -var report_app_name="$APP_NAME_AGENT_REPORT"
 

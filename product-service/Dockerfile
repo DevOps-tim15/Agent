@@ -8,5 +8,5 @@ RUN mvn package -P${STAGE} -DskipTests
 FROM openjdk:8-jdk-alpine AS appProductRuntime
 WORKDIR /app
 COPY --from=appProductBuild /usr/src/product-service/target/products.jar ./
-EXPOSE 8080
+EXPOSE 8081
 CMD java -jar products.jar

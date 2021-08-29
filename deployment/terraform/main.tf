@@ -14,6 +14,10 @@ variable "shopping_app_name" {
   description = "Unique name of the Shopping app"
 }
 
+variable "report_app_name" {
+  description = "Unique name of the Report app"
+}
+
 variable "gateway_app_name" {
   description = "Unique name of the Gateway app"
 }
@@ -74,6 +78,31 @@ resource "heroku_addon_attachment" "database" {
   addon_id = heroku_addon.database.id
 }
 
+resource "heroku_app" "report-service" {
+  name   = var.report_app_name
+  region = "eu"
+  stack  = "container"
+}
+
+resource "heroku_build" "report-service" {
+  app = heroku_app.report-service.id
+
+  source {
+    path = "report"
+  }
+}
+
+resource "heroku_app_config_association" "report-service" {
+  app_id = heroku_app.report-service.id
+
+  vars = heroku_config.prod.vars
+}
+
+resource "heroku_addon_attachment" "database1" {
+  app_id  = heroku_app.report-service.id
+  addon_id = heroku_addon.database.id
+}
+
 resource "heroku_app" "gateway-service" {
   name   = var.gateway_app_name
   region = "eu"
@@ -99,6 +128,9 @@ output "product_app_url" {
 }
 output "shopping_app_url" {
   value = "http://${heroku_app.shopping-service.name}.herokuapp.com"
+}
+output "report_app_url" {
+  value = "http://${heroku_app.report-service.name}.herokuapp.com"
 }
 output "gateway_app_url" {
   value = "http://${heroku_app.gateway-service.name}.herokuapp.com"
