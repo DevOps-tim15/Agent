@@ -1,0 +1,111 @@
+version: "3.8"
+services:
+
+  gateway:
+    build:
+     context: .
+     dockerfile: ./Gateway/Dockerfile
+    image: nginx:1.19.8-alpine
+    environment:
+      PORT: 8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - product-service
+      - database
+      - shopping-service
+      - report-service
+    networks:
+      - servers
+      
+  product-service:
+    build: 
+      context: ./product-service
+      dockerfile: Dockerfile
+      args:
+        STAGE: ${STAGE:-dev}
+      target: ${TARGET:-appProductRuntime}
+    image: nikolina97/product-service:${VERSION:-0.1.0}-${STAGE:-dev}
+    container_name: product-service
+    restart: on-failure
+    networks:
+      - servers
+    ports:
+      - 8081:8081
+    environment:
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-sa}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-zgadija}
+      DATABASE_DOMAIN: ${DATABASE_DOMAIN:-database}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA:-products}
+    depends_on: 
+      - database
+
+  shopping-service:
+    build: 
+      context: ./shopping-service
+      dockerfile: Dockerfile
+      args:
+        STAGE: ${STAGE:-dev}
+      target: ${TARGET:-appProductRuntime}
+    image: nikolina97/shopping-service:${VERSION:-0.1.0}-${STAGE:-dev}
+    container_name: shopping-service
+    restart: on-failure
+    networks:
+      - servers
+    ports:
+      - 8082:8082
+    environment:
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-sa}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-zgadija}
+      DATABASE_DOMAIN: ${DATABASE_DOMAIN:-database}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA:-products}
+    depends_on: 
+      - database
+   
+  report-service:
+    build: 
+      context: ./report-service
+      dockerfile: Dockerfile
+      args:
+        STAGE: ${STAGE:-dev}
+      target: ${TARGET:-appProductRuntime}
+    image: nikolina97/report-service:${VERSION:-0.1.0}-${STAGE:-dev}
+    container_name: report-service
+    restart: on-failure
+    networks:
+      - servers
+    ports:
+      - 8083:8083
+    environment:
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-sa}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-zgadija}
+      DATABASE_DOMAIN: ${DATABASE_DOMAIN:-database}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA:-products}
+    depends_on: 
+      - database
+      
+  database:
+    image: mysql:${MYSQL_VERSION:-8.0.26}
+    container_name: mysql
+    restart: always
+    networks:
+      - servers
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_USER: ${MYSQL_USER:-sa}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-zgadija}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-products}
+    volumes:
+      - database-data:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
+ 
+volumes:
+  database-data:
+    name: product-database
+        
+networks:
+  servers:
+    name: servers
+    driver: bridge

@@ -1,0 +1,1 @@
+FROM nikolina97/product-service:v0.0.5-dev.0

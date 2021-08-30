@@ -1,0 +1,65 @@
+<div class=" content">
+    <div class="row">
+        <div class="col-md-2 text-center">Image</div>
+        <div class="col-md-3 text-center">Name</div>
+        <div class="col-md-3 text-center">Amount</div>
+        <div class="col-md-3 text-center">Total price</div>
+    </div>
+    <div class="row row-md-offset-2" style="margin-top:20px;"  *ngFor="let item of orderItems">
+        <div class="col-md-2 text-center" >
+            <!-- <div class="embed-responsive embed-responsive-4by3"> -->
+                <img  width="133" height="100" src={{item.product.picture}} alt="Card image cap">
+            <!-- </div> -->
+        </div>
+        <div class="col-md-3 text-center">{{item.product.name}}</div>
+        <div class="col-md-3 text-center">{{item.product.amount}}</div>
+        <div class="col-md-3 text-center">{{item.totalPrice}}</div>
+        <div class="col-md-1 text-center"><button class = "btn btn-danger btn-round"(click)="remove(item)">X</button></div>
+    </div>
+    <div class="row row-md-offset-5" *ngIf="orderItems.length !== 0" style="background-color: black; width: 100%; height: 1px; margin-top: 30px;"></div>
+    <div *ngIf="orderItems.length !== 0" class="row" style="margin-top:30px;">
+        <div class=" col-md-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <h5 class=" title">Data for ordering</h5>
+                </div>
+                <div class=" card-body">
+                    <form [formGroup]="customerForm" (ngSubmit)="buy()">
+                        <div class=" row">
+                            <div class=" col-md-10">
+                                <div class=" form-group">
+                                    <label for="name"> First Name </label>
+                                    <input class=" form-control" type="text" formControlName="firstName"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-10">
+                                <div class=" form-group">
+                                    <label> Last Name </label>
+                                    <input class=" form-control" type="text" formControlName="lastName"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class=" col-md-10">
+                                <div class=" form-group">
+                                    <label> Address </label>
+                                    <input class=" form-control" type="text" formControlName="address"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" card-footer">
+                            <div class= "row">
+                                <div class=" col text-center" style="align-content: center;">
+                                    <button class=" btn btn-fill btn-success" type="submit">Buy for {{order.totalPrice | currency:'EUR':true}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

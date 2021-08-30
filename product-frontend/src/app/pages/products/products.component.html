@@ -1,0 +1,39 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-lg-4" *ngFor="let product of productList">
+      <div class=" card card-chart" style="width: 18rem;">
+        <div class="embed-responsive embed-responsive-4by3">
+          <img class="card-img-top embed-responsive-item" src={{product.picture}} alt="Card image cap">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Name: {{product.name}}</h5>
+          <p class="card-text">Price: {{product.price | currency:'EUR':true}}</p>
+          <p class="card-text">Quantity: {{product.quantity}}</p>
+          <div class=" row">
+            <div class="col text-center">
+              <button type="button" class="btn btn-block btn-light" [routerLink]="['/product', product.id]">Edit</button>
+            </div>
+          </div>
+          <div class=" row">
+            <div class="col text-center">
+              <button type="button" class="btn btn-block btn-danger" (click)="delete(product.id)">Remove</button>
+            </div>
+          </div>
+          <div class=" row">
+            <div class="col text-center">
+            </div>
+          </div>
+          <div class=" row">
+            <div class="col-md-4">
+              <input class="form-control" type="number" [(ngModel)]="product.amount"
+              ng-pattern="/^[0-9]+$/" min="1"/>
+            </div>
+            <div class="col-md-8">
+              <button type="button" class="btn btn-block btn-success" (click)="addToCart(product)">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
