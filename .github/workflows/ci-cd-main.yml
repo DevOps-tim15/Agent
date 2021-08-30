@@ -1,33 +1,32 @@
-name: CI push develop
+name: CI/CD push main
 
 on:
   push:
     branches:
-      - 'develop'
+      - 'main'
 
 jobs:
 
-  pre-realese:
+  realese:
     runs-on: ubuntu-latest
     steps:
         - name: Bump version and push tag
           id: tag_version
           uses: mathieudutour/github-tag-action@v5.5
           with:
-            append_to_pre_release_tag: "dev"
+            release_branches: main
             default_bump: patch
             github_token: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Create a GitHub prerelease
+        - name: Create a GitHub release
           uses: actions/create-release@v1
           id: create_release
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
             tag_name: ${{ steps.tag_version.outputs.new_tag }}
-            release_name: Prerelease ${{ steps.tag_version.outputs.new_tag }}
+            release_name: Release ${{ steps.tag_version.outputs.new_tag }}
             body: ${{ steps.tag_version.outputs.changelog }}
-            prerelease: true
         - uses: actions/checkout@v1
         
         - name: Build product service docker image
@@ -52,4 +51,4 @@ jobs:
             docker push  ${{ secrets.DOCKER_USER }}/report-service:${{ steps.tag_version.outputs.new_tag }}
             docker push  ${{ secrets.DOCKER_USER }}/gateway-agent:${{ steps.tag_version.outputs.new_tag }}  
         - name: Deploy on test env Heroku
-          run: bash ./deploy.sh ${{ steps.tag_version.outputs.new_tag }} nina.batinic@yahoo.com ${{ secrets.HEROKU_PASS }} agent-tim15-backend nikolina97 terraform-deploy stage
+          run: bash ./deploy.sh ${{ steps.tag_version.outputs.new_tag }} ninabatinic97@gmail.com ${{ secrets.HEROKU_TOKEN_PROD }} agent-tim15-production nikolina97 terraform-deploy production
