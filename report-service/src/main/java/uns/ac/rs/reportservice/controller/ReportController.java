@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import uns.ac.rs.reportservice.service.ReportService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080", "http://agent-gateway-stage.herokuapp.com"})
+@CrossOrigin(origins = {"http://localhost:8080", "http://agent-gateway-stage.herokuapp.com", "http://agent-gateway-production.herokuapp.com"})
 public class ReportController {
 	
 	@Autowired

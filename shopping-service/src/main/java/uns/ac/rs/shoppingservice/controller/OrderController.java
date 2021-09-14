@@ -14,7 +14,7 @@ import uns.ac.rs.shoppingservice.exception.InvalidDataException;
 import uns.ac.rs.shoppingservice.service.OrderService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080", "http://agent-gateway-stage.herokuapp.com"})
+@CrossOrigin(origins = {"http://localhost:8080", "http://agent-gateway-stage.herokuapp.com", "http://agent-gateway-production.herokuapp.com"})
 public class OrderController {
 
 	@Autowired
