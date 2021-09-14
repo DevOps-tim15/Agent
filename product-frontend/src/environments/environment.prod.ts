@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://agent-gateway-stage.herokuapp.com"
+  apiUrl: "http://agent-gateway-production.herokuapp.com"
 };
